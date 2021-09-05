@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 
 const Usuario = require('./usuario');
 const Produtos = require('./produtos');
-const Lista = require('./lista_compra');
+const Lista = require('./listaCompra');
 const Categorias = require('./categorias');
 const Lojas = require('./lojas');
 const Endereco = require('./endereco');
@@ -18,8 +18,8 @@ const lojas = Lojas(sequelize, Sequelize.DataTypes);
 
 produtos.belongsTo(categorias);
 lista.hasMany(produtos);
-endereco.belongToMany(usuario);
-lojas.belongToMany(lista);
+endereco.belongsTo(usuario); //*
+lojas.belongsTo(lista);//*
 lista.hasOne(usuario);
 
 const db = {
@@ -29,6 +29,7 @@ const db = {
     categorias,
     endereco,
     lojas,
+    sequelize //alterado aqui
 };
 
 module.exports = db;
